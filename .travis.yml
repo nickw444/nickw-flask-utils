@@ -8,11 +8,13 @@ python:
 
 install:
   - pip install coveralls flake8
-  - coverage run --source=flask_utils setup.py test
+  - pip install .
 
 script:
   - flake8 .
-  - make test
+  - coverage run --source=flask_utils setup.py test
+
+after_success: coveralls
 
 before_deploy:
   - git describe --dirty --always > VERSION
@@ -21,5 +23,6 @@ deploy:
   provider: pypi
   user: nickw444-deploy
   password: "$PYPI_PASSWORD"
-  on: 
+  skip_cleanup: true
+  on:
     tags: true
