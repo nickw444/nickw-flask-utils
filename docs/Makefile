@@ -91,9 +91,9 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/twopi-flask-utils.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/nickw-flask-utils.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/twopi-flask-utils.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/nickw-flask-utils.qhc"
 
 .PHONY: applehelp
 applehelp:
@@ -110,8 +110,8 @@ devhelp:
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/twopi-flask-utils"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/twopi-flask-utils"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/nickw-flask-utils"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/nickw-flask-utils"
 	@echo "# devhelp"
 
 .PHONY: epub

@@ -5,6 +5,6 @@ Testing
 API
 ~~~
 
-.. automodule:: twopi_flask_utils.testing
+.. automodule:: flask_utils.testing
     :members:
 

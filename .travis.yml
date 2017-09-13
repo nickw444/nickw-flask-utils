@@ -7,9 +7,11 @@ python:
   - "nightly"
 
 install:
-  - pip install flake8
+  - pip install coveralls flake8
+  - coverage run --source=flask_utils setup.py test
 
 script:
+  - flake8 .
   - make test
 
 before_deploy:
@@ -17,7 +19,7 @@ before_deploy:
 
 deploy:
   provider: pypi
-  user: twopi-deploy
+  user: nickw444-deploy
   password: "$PYPI_PASSWORD"
   on: 
     tags: true

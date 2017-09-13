@@ -5,6 +5,6 @@ Webargs
 API
 ~~~
 
-.. automodule:: twopi_flask_utils.webargs
+.. automodule:: flask_utils.webargs
     :members:
 

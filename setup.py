@@ -12,16 +12,16 @@ extras = {
 }
 
 packages = [
-    'twopi_flask_utils',
-    'twopi_flask_utils.celery',
-    'twopi_flask_utils.config',
-    'twopi_flask_utils.deployment_release',
-    'twopi_flask_utils.pagination',
-    'twopi_flask_utils.restful',
-    'twopi_flask_utils.sentry',
-    'twopi_flask_utils.testing',
-    'twopi_flask_utils.token_auth',
-    'twopi_flask_utils.webargs',
+    'flask_utils',
+    'flask_utils.celery',
+    'flask_utils.config',
+    'flask_utils.deployment_release',
+    'flask_utils.pagination',
+    'flask_utils.restful',
+    'flask_utils.sentry',
+    'flask_utils.testing',
+    'flask_utils.token_auth',
+    'flask_utils.webargs',
 ]
 
 tests_require = []
@@ -35,13 +35,13 @@ def get_version():
         'VERSION')
     v = open(version_path).read()
     if type(v) == str:
-        return v.strip()
+            return v.strip()
     return v.decode('UTF-8').strip()
 
 
 readme_path = os.path.join(os.path.dirname(
-  os.path.abspath(__file__)),
-  'README.rst',
+    os.path.abspath(__file__)),
+    'README.rst',
 )
 long_description = open(readme_path).read()
 
@@ -50,9 +50,8 @@ try:
 except Exception as e:
     version = '0.0.0-dev'
 
-
 setup(
-    name='twopi-flask-utils',
+    name='nickw-flask-utils',
     version=version,
     packages=packages,
     package_data={'': ['LICENSE', 'README.rst']},
@@ -61,9 +60,9 @@ setup(
     extras_require=extras,
     tests_require=tests_require,
     test_suite='tests',
-    url='https://github.com/TwoPiCode/twopi-flask-utils',
+    url='https://github.com/nickw444/nickw-flask-utils',
     author='Nick Whyte',
-    author_email='nick@twopicode.com',
+    author_email='nick@nickwhyte.com',
     description=('A set of utilities to make working with flask web '
                  'applications easier.'),
     long_description=long_description

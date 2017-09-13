@@ -4,6 +4,6 @@ Pagination
 API
 ~~~
 
-.. automodule:: twopi_flask_utils.pagination
+.. automodule:: flask_utils.pagination
     :members:
 

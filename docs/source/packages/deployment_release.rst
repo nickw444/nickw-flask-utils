@@ -5,6 +5,6 @@ Deployment Release
 API
 ~~~
 
-.. automodule:: twopi_flask_utils.deployment_release
+.. automodule:: flask_utils.deployment_release
     :members:
 

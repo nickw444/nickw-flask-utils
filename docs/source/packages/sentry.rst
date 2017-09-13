@@ -4,6 +4,6 @@ Sentry
 API
 ~~~
 
-.. automodule:: twopi_flask_utils.sentry
+.. automodule:: flask_utils.sentry
     :members:
 
