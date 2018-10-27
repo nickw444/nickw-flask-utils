@@ -2,6 +2,7 @@ from raven import Client
 from raven.contrib.celery import register_signal, register_logger_signal
 from raven.contrib.flask import Sentry
 
+
 def create_client(conf, app_version='__UNKNOWN__', ignore_common_http=True):
     """Creates a sentry client.
 
@@ -13,13 +14,13 @@ def create_client(conf, app_version='__UNKNOWN__', ignore_common_http=True):
     ignore_exceptions = []
     if ignore_common_http:
         ignore_exceptions = [
-            'werkzeug.exceptions.BadRequest', # 400
-            'werkzeug.exceptions.Unauthorized', # 401
-            'werkzeug.exceptions.Forbidden', # 403
-            'werkzeug.exceptions.NotFound', # 404
-            'werkzeug.exceptions.MethodNotAllowed', # 405
-            'marshmallow.exceptions.ValidationError', # Marshmallow Validation Error.
-            'webargs.core.ValidationError', # Webargs Validation Error
+            'werkzeug.exceptions.BadRequest',  # 400
+            'werkzeug.exceptions.Unauthorized',  # 401
+            'werkzeug.exceptions.Forbidden',  # 403
+            'werkzeug.exceptions.NotFound',  # 404
+            'werkzeug.exceptions.MethodNotAllowed',  # 405
+            'marshmallow.exceptions.ValidationError',  # Marshmallow Validation Error.
+            'webargs.core.ValidationError',  # Webargs Validation Error
         ]
 
     client = Client(
@@ -29,6 +30,7 @@ def create_client(conf, app_version='__UNKNOWN__', ignore_common_http=True):
         ignore_exceptions=ignore_exceptions
     )
     return client
+
 
 def inject_sentry(app, ignore_common_http=True):
     """Injects sentry into a Flask Application

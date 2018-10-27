@@ -1,19 +1,20 @@
-from flask import current_app, Flask, request, abort, jsonify, g
-from flask_utils.token_auth import (
-    ShortlivedTokenMixin, parse_auth_header, auth_required)
-from marshmallow import fields
-import uuid
-import random
-import string
-import pytz
 import datetime
 import logging
+import random
+import string
+import uuid
+
+import pytz
+from flask import current_app, Flask, request, abort, jsonify, g
+from marshmallow import fields
+
+from flask_utils.token_auth import (
+    ShortlivedTokenMixin, parse_auth_header, auth_required)
 
 log = logging.getLogger(__name__)
 
 
 class ShortlivedToken(ShortlivedTokenMixin):
-
     class TokenSchema(ShortlivedTokenMixin.TokenSchema):
         rfid = fields.String(attribute='refresh_token_id')
         user_id = fields.String(attribute='user_id')
@@ -41,6 +42,7 @@ class ShortlivedToken(ShortlivedTokenMixin):
 
 random_alpha = string.digits + string.ascii_letters
 
+
 class RefreshToken():
     def __init__(self, user_id, scopes):
         self.id = uuid.uuid4().hex
@@ -64,7 +66,7 @@ def login():
     # Check if the credentials were correct
     if request.form.get('username') != 'test' or \
             request.form.get('password') != 'test':
-            abort(401)
+        abort(401)
 
     # Create a new refresh token
     refresh_token = RefreshToken(user_id=request.form.get('username'),
@@ -86,13 +88,12 @@ def login():
 @parse_auth_header(ShortlivedToken)
 @auth_required()
 def logout():
-
     # Find the associated refresh token
     for refresh_token in refresh_tokens:
         if refresh_token.id == g.token.refresh_token_id:
-            break # Found the associated token
+            break  # Found the associated token
 
-    else: # nobreak
+    else:  # nobreak
         # Couldn't find the token. Maybe it has been revoked.
         abort(401)
 
@@ -111,9 +112,9 @@ def renew():
     # Find the refresh token in the store
     for refresh_token in refresh_tokens:
         if refresh_token.token == token_string:
-            break # Found the token that we need.
+            break  # Found the token that we need.
 
-    else: # nobreak
+    else:  # nobreak
         # Couldn't find the token. Oops
         abort(401)
 

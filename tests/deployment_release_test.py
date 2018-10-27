@@ -1,5 +1,8 @@
-import unittest, os
+import os
+import unittest
+
 from flask_utils.deployment_release import get_release
+
 
 class TestGetRelease(unittest.TestCase):
 

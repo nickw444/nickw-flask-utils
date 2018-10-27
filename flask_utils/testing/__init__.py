@@ -1,11 +1,13 @@
 import json
 
+
 class AppReqTestHelper(object):
     """
     Adds convenience request methods on the testcase object.
 
     Assumes a flask app client is defined on ``self.client``
     """
+
     def _req(self, meth, *args, **kwargs):
         if kwargs.get('content_type') is None and meth != 'get':
             kwargs['content_type'] = 'application/json'
@@ -88,37 +90,38 @@ class PrivilegeTestHelper(AppReqTestHelper):
                 _meth = 'get'
 
             rv = self._req(_meth, endp, **kwargs)
-            self.assertEqual(rv.status_code, expected_code, 
+            self.assertEqual(rv.status_code, expected_code,
                              "Expected {} for method {} but got {}. {}".format(
-                                expected_code, meth, rv.status_code, rv.get_json()))
+                                 expected_code, meth, rv.status_code, rv.get_json()))
 
 
 class CRUDTestHelper(AppReqTestHelper):
     """
     A helper to test generic CRUD operations on an endpoint.
     """
-    def do_crud_test(self, endpoint, data_1=None, data_2=None, key='id', 
-                     check_keys=[], keys_from_prev=[], create=True, delete=True, 
+
+    def do_crud_test(self, endpoint, data_1=None, data_2=None, key='id',
+                     check_keys=[], keys_from_prev=[], create=True, delete=True,
                      update=True, read=True, initial_count=0):
         """
-        Begins the CRUD test. 
+        Begins the CRUD test.
 
         :param endpoint: ``string``: The endpoint to test
         :param data1: ``dict``: Data to create the initial entity with (POST)
         :param data2: ``dict``: Data to update the entity with (PUT)
         :param key: ``string``: The key field in the response returned when performing
                             a create.
-        :param check_keys: ``list``: A list of keys to compare ``data_1`` and 
-                                 ``data_2`` to returned API responses. (To 
+        :param check_keys: ``list``: A list of keys to compare ``data_1`` and
+                                 ``data_2`` to returned API responses. (To
                                  ensure expected response data)
-        :param keys_from_prev: ``list``: A list of keys to check that they persisted 
+        :param keys_from_prev: ``list``: A list of keys to check that they persisted
                                      after a create/update.
         :param create: ``bool``: Should create a new object and test it's existence
-        :param delete: ``bool``: Should delete the newly created object and test 
+        :param delete: ``bool``: Should delete the newly created object and test
                              that it has been deleted.
         :param update: ``bool``: Should performs PUT (update)
         :param read: ``bool``: Should perform a plural read
-        :param initial_count: ``int``: The initial number of entities in the endpoint's 
+        :param initial_count: ``int``: The initial number of entities in the endpoint's
                                    dataset
         """
 
@@ -145,7 +148,7 @@ class CRUDTestHelper(AppReqTestHelper):
                 for item in rv.get_json():
                     if self.equalDicts(check_keys, item, data_1):
                         break
-                else: # nobreak
+                else:  # nobreak
                     self.fail("Could not find the object that was created in the response.")
 
             else:
@@ -156,7 +159,7 @@ class CRUDTestHelper(AppReqTestHelper):
             # Singular Read
             rv = self.get(endpoint + '/' + str(key_id))
             self.assertEqual(rv.status_code, 200)
-            prev_data = rv.get_json() # Keep this data so we can use it after update.
+            prev_data = rv.get_json()  # Keep this data so we can use it after update.
             self.assertEqualDicts(check_keys, prev_data, data_1)
 
         if update and create:
@@ -165,7 +168,7 @@ class CRUDTestHelper(AppReqTestHelper):
             self.assertEqual(rv.status_code, 200)
             self.assertEqualDicts(check_keys, rv.get_json(), data_2)
             self.assertEqualDicts(keys_from_prev, rv.get_json(), prev_data)
-        
+
         if read and create:
             # Singular Read to confirm persisted.
             rv = self.get(endpoint + '/' + str(key_id))
@@ -191,11 +194,11 @@ class CRUDTestHelper(AppReqTestHelper):
 
     def filteredDicts(self, keys, *dicts):
         ret = []
-        for d in dicts:    
+        for d in dicts:
             d_filtered = dict((k, v) for k, v in d.items()
                               if k in keys)
             ret.append(d_filtered)
-        
+
         return ret
 
     def assertEqualDicts(self, keys, d1, d2):
@@ -204,4 +207,3 @@ class CRUDTestHelper(AppReqTestHelper):
     def equalDicts(self, keys, d1, d2):
         d1, d2 = self.filteredDicts(keys, d1, d2)
         return d1 == d2
-

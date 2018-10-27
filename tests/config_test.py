@@ -1,5 +1,7 @@
 import unittest
+
 from flask_utils.config import build_url
+
 
 class TestBuildUrl(unittest.TestCase):
     def test_basic_dsn(self):
