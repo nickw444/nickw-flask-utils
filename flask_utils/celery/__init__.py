@@ -1,5 +1,7 @@
 from celery import Celery
+
 from flask_utils.deployment_release import get_release
+
 
 def create_celery(name, config_obj, inject_version=True, **kwargs):
     """Creates a celery app.

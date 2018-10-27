@@ -1,9 +1,12 @@
-from flask import g, request, jsonify
-from functools import wraps
-from flask_utils.restful import format_error
 import re
+from functools import wraps
+
+from flask import g, request, jsonify
+
+from flask_utils.restful import format_error
 
 bearer_re = re.compile(r'Bearer (.+)')
+
 
 def parse_auth_header(token_cls, auth_header=True, query_string=True, secret=None):
     """
@@ -25,6 +28,7 @@ def parse_auth_header(token_cls, auth_header=True, query_string=True, secret=Non
     Authorization header expects tokens in the format of ``Bearer <token string>``
 
     """
+
     def wrapper(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
@@ -52,6 +56,7 @@ def parse_auth_header(token_cls, auth_header=True, query_string=True, secret=Non
             return f(*args, **kwargs)
 
         return wrapped
+
     return wrapper
 
 
@@ -70,6 +75,7 @@ def auth_required():
             return "Hello World"
 
     """
+
     def wrapper(f):
         @wraps(f)
         def wrapped(*args, **kwargs):
@@ -80,4 +86,5 @@ def auth_required():
             return f(*args, **kwargs)
 
         return wrapped
+
     return wrapper

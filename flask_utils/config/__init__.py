@@ -3,30 +3,37 @@ try:
 except ImportError:
     from urlparse import urlparse
 
-def build_url(url, scheme=None, username=None, password=None, hostname=None, 
+
+def build_url(url, scheme=None, username=None, password=None, hostname=None,
               port=None, path=None):
     """
     Parse a URL and override specific segments of it.
-    
+
     :param url: The url to parse/build upon
-    :param scheme: 
-    :param username: 
-    :param password: 
-    :param hostname: 
+    :param scheme:
+    :param username:
+    :param password:
+    :param hostname:
     :param port:
     :param path:
-    
+
     :return: A URL with overridden components
 
     """
     dsn = urlparse(url)
 
-    if scheme is None: scheme = dsn.scheme
-    if username is None: username = dsn.username
-    if password is None: password = dsn.password
-    if hostname is None: hostname = dsn.hostname
-    if port is None: port = dsn.port
-    if path is None: path = dsn.path
+    if scheme is None:
+        scheme = dsn.scheme
+    if username is None:
+        username = dsn.username
+    if password is None:
+        password = dsn.password
+    if hostname is None:
+        hostname = dsn.hostname
+    if port is None:
+        port = dsn.port
+    if path is None:
+        path = dsn.path
 
     def build_auth():
         if username is not None or password is not None:

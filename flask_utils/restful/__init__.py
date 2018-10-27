@@ -1,9 +1,11 @@
 from flask import jsonify, request
 
+
 def format_errors(*errors):
     return {
         '_errors': errors
     }
+
 
 def format_error(error):
     return format_errors(error)
@@ -11,12 +13,12 @@ def format_error(error):
 
 def output_json(data, code, headers=None):
     """
-    
+
     .. code-block:: python
-        
+
         api.representations['application/json'] = output_json
-    
-    Generates better formatted responses for RESTFul APIs. 
+
+    Generates better formatted responses for RESTFul APIs.
 
     If the restful resource responds with a string, with a non 200 error,
     the response will look like
@@ -36,8 +38,8 @@ def output_json(data, code, headers=None):
             "message": "String the user returned with."
         }
 
-    
-    If a Non-200 response occured, and flask-restful added it's own error 
+
+    If a Non-200 response occured, and flask-restful added it's own error
     message in the "message" field of the response data, this data is moved into
     "_errors":
 
@@ -49,7 +51,7 @@ def output_json(data, code, headers=None):
         }
 
 
-    All data is returned using flask's jsonify method. This means you can 
+    All data is returned using flask's jsonify method. This means you can
     use simplejson to return decimal objects from your flask restful resources.
     """
 
@@ -75,7 +77,6 @@ def output_json(data, code, headers=None):
     return resp
 
 
-
 class ExpectedJSONException(Exception):
     """
     Thrown when JSON was expected in a flask request but was not
@@ -91,7 +92,7 @@ class ExpectedJSONException(Exception):
         Usage:
 
         .. code-block:: python
-     
+
             app.errorhandler(ExpectedJSONException)(ExpectedJSONException.handle)
 
 
@@ -110,6 +111,5 @@ def get_and_expect_json():
     data = request.get_json()
     if data is None:
         raise ExpectedJSONException()
-    
-    return data
 
+    return data
