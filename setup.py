@@ -1,5 +1,5 @@
-from setuptools import setup
 import os
+from setuptools import setup
 
 extras = {
     'ldap': [],
@@ -35,7 +35,7 @@ def get_version():
         'VERSION')
     v = open(version_path).read()
     if type(v) == str:
-            return v.strip()
+        return v.strip()
     return v.decode('UTF-8').strip()
 
 
