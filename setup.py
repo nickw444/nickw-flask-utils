@@ -57,6 +57,7 @@ setup(
     package_data={'': ['LICENSE', 'README.rst']},
     zip_safe=False,
     include_package_data=True,
+    python_requires=">=3.4",
     extras_require=extras,
     tests_require=tests_require,
     test_suite='tests',
