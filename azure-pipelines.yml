@@ -68,8 +68,7 @@ jobs:
         # Only publish coverage from Python latest build.
         condition: eq(variables['python.version'], '3.x')
       - script: |
-          set -e
-          sed -i "s/0.0.0-dev/$(git describe --exact-match)/" flask_utils/__init__.py
+          sed -i "s/0.0.0-dev/$(set -e; git describe --exact-match)/" flask_utils/__init__.py
           python setup.py sdist bdist_wheel
         displayName: "Build"
       - task: PublishBuildArtifacts@1
