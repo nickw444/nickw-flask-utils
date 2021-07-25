@@ -57,6 +57,8 @@ jobs:
           python.version: '3.x'
     steps:
       - ${{ parameters.step_install_dependencies }}
+      - script: pip install wheel
+        displayName: 'Install Build Dependencies'
       - script: |
           coverage run --source=flask_utils setup.py test
         displayName: 'Run Tests (with coverage)'
@@ -65,8 +67,6 @@ jobs:
         displayName: 'Upload to codecov.io'
         # Only publish coverage from Python latest build.
         condition: eq(variables['python.version'], '3.x')
-      - script: pip install wheel
-        displayName: 'Install Build Dependencies'
       - script: |
           set -e
           sed -i "s/0.0.0-dev/$(git describe --exact-match)/" flask_utils/__init__.py
